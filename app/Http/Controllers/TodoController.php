@@ -30,7 +30,7 @@ class TodoController extends Controller
         return redirect()->back()->with('message', 'Todo created successfully!');
     }
 
-    public function update(Request $request, Todo $todo)
+    public function update(TodoCreateRequest $request, Todo $todo)
     {
         $todo->update(['title' => $request->title]);
         return redirect(route('todo.index'))->with('message', 'Updated todo successfully!');
