@@ -11,6 +11,11 @@
         <li class="flex justify-center py-2">
             <p>{{ $todo->title }}</p>
             <a href="{{'/todos/' . $todo->id . '/edit'}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Edit</a>
+            @if($todo->completed)
+                <span class="text-green-200">Already done!</span>
+            @else
+                <a href="{{'/todos/' . $todo->id . '/edit'}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Click to finish</a>
+            @endif
         </li>
     @endforeach
     </ul>
