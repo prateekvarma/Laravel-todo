@@ -10,11 +10,15 @@
     @foreach($todos as $todo)
         <li class="flex justify-center py-2">
             <p>{{ $todo->title }}</p>
-            <a href="{{'/todos/' . $todo->id . '/edit'}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Edit</a>
             @if($todo->completed)
                 <span class="text-green-200">Already done!</span>
             @else
-                <a href="{{'/todos/' . $todo->id . '/edit'}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Click to finish</a>
+                <a href="{{'/todos/' . $todo->id . '/edit'}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Edit</a>
+                <span onclick="event.preventDefault(); document.getElementById('form-complete-{{$todo->id}}').submit()" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Click to finish</span>
+                <form id="{{'form-complete-'.$todo->id}}" style="display: none" method="POST" action="{{route('todo.complete', ['todo'=>$todo->id])}}">
+                @csrf
+                @method('put')
+            </form>
             @endif
         </li>
     @endforeach
