@@ -9,9 +9,13 @@
     <x-alert />
     @foreach($todos as $todo)
         <li class="flex justify-center py-2">
-            <p>{{ $todo->title }}</p>
+            <p>{{ $todo->title }} </p>
             @if($todo->completed)
-                <span class="text-green-200">Already done!</span>
+                <span onclick="event.preventDefault(); document.getElementById('form-incomplete-{{$todo->id}}').submit()" class="text-green-200">: Already done! (click to undo)</span>
+                <form id="{{'form-incomplete-'.$todo->id}}" style="display: none" method="POST" action="{{route('todo.incomplete', ['todo'=>$todo->id])}}">
+                @csrf
+                @method('put')
+            </form>
             @else
                 <a href="{{'/todos/' . $todo->id . '/edit'}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Edit</a>
                 <span onclick="event.preventDefault(); document.getElementById('form-complete-{{$todo->id}}').submit()" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Click to finish</span>
