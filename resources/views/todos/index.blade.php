@@ -22,8 +22,14 @@
                 <form id="{{'form-complete-'.$todo->id}}" style="display: none" method="POST" action="{{route('todo.complete', ['todo'=>$todo->id])}}">
                 @csrf
                 @method('put')
-            </form>
+                </form>
             @endif
+            
+            <span onclick="event.preventDefault(); document.getElementById('form-delete-{{$todo->id}}').submit()" class="mx-5 py-1 px-1 bg-red-400 cursor-pointer rounded text-white">Delete</span>
+            <form id="{{'form-delete-'.$todo->id}}" style="display: none" method="POST" action="{{route('todo.delete', ['todo'=>$todo->id])}}">
+            @csrf
+            @method('delete')
+            </form>
         </li>
     @endforeach
     </ul>
