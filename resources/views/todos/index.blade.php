@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex justify-center">
     <h1 class="text-2xl">All Todos: </h1>
-    <a href="/todos/create" class="mx-5 py-1 px-1 bg-blue-400 cursor-pointer rounded text-white">New Todo</a>
+    <a href="{{route('todo.create')}}" class="mx-5 py-1 px-1 bg-blue-400 cursor-pointer rounded text-white">New Todo</a>
 </div>
     <ul class="my-5">
     <x-alert />
@@ -17,7 +17,7 @@
                 @method('put')
             </form>
             @else
-                <a href="{{'/todos/' . $todo->id . '/edit'}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Edit</a>
+                <a href="{{route('todo.edit', $todo->id)}}" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Edit</a>
                 <span onclick="event.preventDefault(); document.getElementById('form-complete-{{$todo->id}}').submit()" class="mx-5 py-1 px-1 bg-orange-400 cursor-pointer rounded text-white">Click to finish</span>
                 <form id="{{'form-complete-'.$todo->id}}" style="display: none" method="POST" action="{{route('todo.complete', ['todo'=>$todo->id])}}">
                 @csrf
@@ -26,7 +26,7 @@
             @endif
             
             <span onclick="event.preventDefault(); document.getElementById('form-delete-{{$todo->id}}').submit()" class="mx-5 py-1 px-1 bg-red-400 cursor-pointer rounded text-white">Delete</span>
-            <form id="{{'form-delete-'.$todo->id}}" style="display: none" method="POST" action="{{route('todo.delete', ['todo'=>$todo->id])}}">
+            <form id="{{'form-delete-'.$todo->id}}" style="display: none" method="POST" action="{{route('todo.destroy', ['todo'=>$todo->id])}}">
             @csrf
             @method('delete')
             </form>
